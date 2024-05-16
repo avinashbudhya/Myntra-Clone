@@ -39,4 +39,19 @@ jobs:
           docker push avinashbudhya/myntra:latest
         env:
           DOCKER_CLI_ACI: 1
+  deploy:
+    needs: build
+    runs-on: self-hosted # Use your self-hosted runner label here
+    steps:
+      - name: docker pull image
+        run: docker pull avinashbudhya/myntra:latest
+
+      - name: Run the container
+        run: docker run -d --name myntra -p 3000:3000 avinashbudhya/myntra:latest  
+
+      - name: Update kubeconfig
+        run: aws eks --region us-east-1 update-kubeconfig --name k24-cluster
+
+      - name: Deploy to kubernetes
+        run: kubectl apply -f deployment-service.yml  
        
