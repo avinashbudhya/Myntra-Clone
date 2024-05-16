@@ -47,7 +47,7 @@ jobs:
         run: docker pull avinashbudhya/myntra:latest
 
       - name: Run the container
-        run: docker run -d --name myntra -p 3000:3000 avinashbudhya/myntra:latest  
+        run: docker run -d --name myntra01 -p 3000:3000 avinashbudhya/myntra:latest  
 
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name k24-cluster
